@@ -1,0 +1,30 @@
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Java build
+out/
+target/
+bin/
+
+# Maven / Gradle
+*.log
+build/
+.gradle/
+dependency-reduced-pom.xml
+release/
+
+# Eclipse (если вдруг использовался)
+.project
+.classpath
+.settings/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
