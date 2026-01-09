@@ -4,7 +4,7 @@ public class Config {
 
     public static class Jpp {
         public static final String jppHolder = "@jpp";
-        public static final String directivePattern = Java.commentPattern + jppHolder + ".*";
+        public static final String directivePattern = Java.singleCommentPattern + jppHolder + ".*";
     }
 
     public static class General {
@@ -16,12 +16,19 @@ public class Config {
     }
 
     public static class Java {
-        public static final String commentPattern = "//.*";
+        public static final String singleCommentOpening = "//";
+        public static final String singleCommentPattern = "//.*";
         public static final String identifierPattern = "[a-zA-Z_]\\w+";
-        public static final String operatorSeparator = ";";
-        public static final String openScopePattern = "\\{";
-        public static final String closeScopePattern = "\\}";
-        public static final String stringLiteral = "\"((?:[^\"\\\\]|\\\\.)*)\"";
+        public static final char operatorSeparator = ';';
+        public static final char openScope = '{';
+        public static final char closeScope = '}';
+        public static final char escapeSymbol = '\\';
+        public static final char stringLiteralOpening = '\"';
+        public static final char stringLiteralClosing = stringLiteralOpening;
+        public static final String stringLiteral =
+                stringLiteralOpening
+                + "((?:[^\"\\\\]|\\\\.)*)"
+                + stringLiteralClosing;
 
         public static final String classKeyWord = "class";
         public static final String classDefinitionPattern =

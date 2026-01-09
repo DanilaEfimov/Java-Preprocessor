@@ -22,7 +22,7 @@ public class Selector {
     }
 
     public static String getComment(String line) {
-        Pattern pattern = Pattern.compile(Config.Java.commentPattern);
+        Pattern pattern = Pattern.compile(Config.Java.singleCommentPattern);
         Matcher matcher = pattern.matcher(line);
         if (matcher.find()) {
             return matcher.group();
