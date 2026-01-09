@@ -9,7 +9,7 @@ public class CommentSelector {
         char token = isMulti ? '*' : '/';
         char trigger = '/';
 
-        return StringLiteralFreeCharSelector.getPosition(line, trigger, token);
+        return StringLiteralFreeSelector.getPosition(line, trigger, token);
     }
 
     public static int getMultiCommentEnding(String line) {
