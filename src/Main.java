@@ -11,7 +11,7 @@ public class Main {
                 "int x = 5;",
                 "/* This is a multi-line",
                 "   comment that spans",
-                "   multiple lines */",
+                "   multiple lines*/",
                 "int y = 10;"
         };
 

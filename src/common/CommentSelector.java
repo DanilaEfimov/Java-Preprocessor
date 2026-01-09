@@ -7,7 +7,7 @@ public class CommentSelector {
 
     public static final int npos = -1;
 
-    protected static int getCommentPosition(String line, boolean isMulti) {
+    public static int getCommentPosition(String line, boolean isMulti) {
         char triggerToken = isMulti ? '*' : '/';
 
         int idx = 0;
@@ -85,7 +85,7 @@ public class CommentSelector {
         slice[0] = slice[0].substring(CommentSelector.getMultiCommentOpening(slice[0]));
         slice[slice.length - 1] = slice[slice.length - 1].substring(0,
                 CommentSelector.getMultiCommentEnding(slice[slice.length - 1])
-                - Config.Java.multiCommentClosing.length());
+                - Config.Java.multiCommentClosing.length() + 1);
 
         return slice;
     }
