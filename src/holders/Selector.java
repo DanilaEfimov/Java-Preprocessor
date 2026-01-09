@@ -7,14 +7,14 @@ import common.Config;
 public class Selector {
 
     public static String select(String line) {
-        Pattern commentPattern = Pattern.compile(Config.directivePattern);
+        Pattern commentPattern = Pattern.compile(Config.Jpp.directivePattern);
         Matcher matcher = commentPattern.matcher(line);
 
         if (matcher.find()) {
             String comment = matcher.group();
-            int index = comment.indexOf(Config.jppHolder);
-            if (index != -1 && index + Config.jppHolder.length() < comment.length()) {
-                return comment.substring(index + Config.jppHolder.length()).trim();
+            int index = comment.indexOf(Config.Jpp.jppHolder);
+            if (index != -1 && index + Config.Jpp.jppHolder.length() < comment.length()) {
+                return comment.substring(index + Config.Jpp.jppHolder.length()).trim();
             }
         }
 
@@ -22,7 +22,7 @@ public class Selector {
     }
 
     public static String getComment(String line) {
-        Pattern pattern = Pattern.compile(Config.commentPattern);
+        Pattern pattern = Pattern.compile(Config.Java.commentPattern);
         Matcher matcher = pattern.matcher(line);
         if (matcher.find()) {
             return matcher.group();
@@ -31,11 +31,11 @@ public class Selector {
     }
 
     public static String beforeHolder(String line) {
-        Pattern pattern = Pattern.compile(Config.directivePattern);
+        Pattern pattern = Pattern.compile(Config.Jpp.directivePattern);
         Matcher matcher = pattern.matcher(line);
         if (matcher.find()) {
             String comment = matcher.group();
-            int index = comment.indexOf(Config.jppHolder);
+            int index = comment.indexOf(Config.Jpp.jppHolder);
             if (index != -1) {
                 return comment.substring(0, index).trim();
             }
@@ -45,7 +45,7 @@ public class Selector {
 
     public static ArrayList<String> getLiteral(String line) {
         ArrayList<String> literals = new ArrayList<>();
-        Pattern pattern = Pattern.compile(Config.stringLiteral);
+        Pattern pattern = Pattern.compile(Config.Java.stringLiteral);
         Matcher matcher = pattern.matcher(line);
 
         while (matcher.find()) {
