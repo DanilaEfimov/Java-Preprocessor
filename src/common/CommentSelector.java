@@ -5,49 +5,18 @@ import java.util.Arrays;
 
 public class CommentSelector {
 
-    public static final int npos = -1;
-
     public static int getCommentPosition(String line, boolean isMulti) {
-        char triggerToken = isMulti ? '*' : '/';
+        char token = isMulti ? '*' : '/';
+        char trigger = '/';
 
-        int idx = 0;
-
-        boolean inLiteral = false;
-        boolean escapedClosing = false;
-        char[] charArray = line.toCharArray();
-        for(char ch : charArray){
-            if(++idx >= charArray.length)
-                break;
-
-            if(!inLiteral){
-                if(ch == '/' && charArray[idx] == triggerToken)
-                    return idx + 1;
-            }
-
-            if(!inLiteral && ch == Config.Java.stringLiteralOpening){
-                inLiteral = true;           // turn into string literal
-                escapedClosing = false;     // by default closing dropped in general
-            }
-            else if(escapedClosing){
-                escapedClosing = false;     // reset escaped closing
-            }
-            else if(ch == Config.Java.escapeSymbol
-                    && charArray[idx] == Config.Java.stringLiteralClosing) {
-                escapedClosing = true;      // set escaped closing flag
-            }
-            else if(ch == Config.Java.stringLiteralClosing) {
-                inLiteral = false;          // turn out string literal
-            }
-        }
-
-        return CommentSelector.npos;
+        return StringLiteralFreeCharSelector.getPosition(line, trigger, token);
     }
 
     public static int getMultiCommentEnding(String line) {
         if(line.contains(Config.Java.multiCommentClosing))
             return line.indexOf(Config.Java.multiCommentClosing);
 
-        return CommentSelector.npos;
+        return Config.npos;
     }
 
     public static int getMultiCommentOpening(String line) {
@@ -55,17 +24,17 @@ public class CommentSelector {
     }
 
     public static boolean hasMultiCommentOpening(String line) {
-        return CommentSelector.getMultiCommentOpening(line) != CommentSelector.npos;
+        return CommentSelector.getMultiCommentOpening(line) != Config.npos;
     }
 
     public static boolean hasMultiCommentEnding(String line) {
-        return CommentSelector.getMultiCommentEnding(line) != CommentSelector.npos;
+        return CommentSelector.getMultiCommentEnding(line) != Config.npos;
     }
 
     public static String[] getMultiComment(String[] lines) {
         boolean inComment = false;
-        int startLine = CommentSelector.npos;
-        int endLine = CommentSelector.npos;
+        int startLine = Config.npos;
+        int endLine = Config.npos;
 
         for(int i = 0; i < lines.length; i++) {
             if(!inComment && CommentSelector.hasMultiCommentOpening(lines[i])){
@@ -78,7 +47,7 @@ public class CommentSelector {
             }
         }
 
-        if (startLine == CommentSelector.npos || endLine == CommentSelector.npos)
+        if (startLine == Config.npos || endLine == Config.npos)
             return new String[]{};
 
         String[] slice = Arrays.copyOfRange(lines, startLine, endLine + 1);
@@ -95,7 +64,7 @@ public class CommentSelector {
     }
 
     public static boolean hasSingleComment(String line) {
-        return CommentSelector.getSingleCommentPosition(line) != CommentSelector.npos;
+        return CommentSelector.getSingleCommentPosition(line) != Config.npos;
     }
 
     /**
@@ -107,7 +76,7 @@ public class CommentSelector {
     public static String getSingleComment(String line) {
         int commentPosition = CommentSelector.getSingleCommentPosition(line);
 
-        if(commentPosition == CommentSelector.npos)
+        if(commentPosition == Config.npos)
             return "";
 
         return line.substring(commentPosition);

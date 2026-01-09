@@ -2,6 +2,8 @@ package common;
 
 public class Config {
 
+    public static final int npos = -1;
+
     public static class Jpp {
         public static final String jppHolder = "@jpp";
         public static final String directivePattern = Java.singleCommentOpening + General.spacePattern + jppHolder + ".*";
