@@ -1,6 +1,6 @@
 package common;
 
-public class StringLiteralFreeSelector {
+public class StringLiteralSelector {
 
     /**
      * Essential method for skip string literals.
@@ -9,7 +9,7 @@ public class StringLiteralFreeSelector {
      * @param token searched character.
      * @return position of first include of token out of string literals.
      */
-    public static int getPosition(String line, char trigger, char token) {
+    public static int getFreePosition(String line, char trigger, char token) {
         int idx = 0;
 
         boolean inLiteral = false;
@@ -43,11 +43,11 @@ public class StringLiteralFreeSelector {
         return Config.npos;
     }
 
-    public static int getPosition(String line, String sub) {
+    public static int getFreePosition(String line, String sub) {
         int idx = line.indexOf(sub);
 
         while (idx != -1) {
-            if (!StringLiteralFreeSelector.inLiteral(line, idx))
+            if (!StringLiteralSelector.inLiteral(line, idx))
                 return idx;
             idx = line.indexOf(sub, idx + 1);
         }

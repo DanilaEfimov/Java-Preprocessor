@@ -10,6 +10,7 @@ public class Config {
     }
 
     public static class General {
+        public static final String lineSeparator = "\n";
         public static final String wordPattern = "\\w+";
         public static final String spacePattern = "\\s+";
         public static final String separatedWords = wordPattern + spacePattern + wordPattern;

@@ -1,22 +1,36 @@
-import common.CommentSelector;
+import macros.*;
 
-import java.util.Arrays;
+public static void main(String[] args) {
+    RawMacro m1 = new RawMacro(
+            "FOO",
+            new String[] {
+                    "int x = 10;",
+                    "int y = 20;"
+            }
+    );
 
-import static common.CommentSelector.getMultiComment;
+    RawMacro m2 = new RawMacro(
+            "BAR",
+            new String[] {
+                    "System.out.println(x + y);"
+            }
+    );
 
-public class Main {
-    public static void main(String[] args) {
+    String[] program = {
+            "String s = \"FOO\"; FOO_ ffFOOp FOO",
+            "FOOFOO BARBAR",
+            "BAR",
+            "\"FOO BAR\"",
+            "FOO BAR"
+    };
 
-        String[] lines = {
-                "int x = 5;",
-                "/* This is a multi-line",
-                "   comment that spans",
-                "   multiple lines*/",
-                "int y = 10;"
-        };
-
-        String[] comment = getMultiComment(lines);
-
-        System.out.println(Arrays.toString(comment));
+    for (String line : program) {
+        String[] expanded = m1.solution(line);
+        for (String l : expanded) {
+            String[] expanded2 = m2.solution(l);
+            for (String out : expanded2) {
+                System.out.println(out);
+            }
+        }
     }
 }

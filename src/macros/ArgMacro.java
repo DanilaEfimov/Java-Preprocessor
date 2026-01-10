@@ -4,8 +4,13 @@ public class ArgMacro extends Macro {
 
     private RawMacro[] parameters;
 
-    ArgMacro(String name, String[] definition) {
+    public ArgMacro(String name, String[] definition) {
         super(name, definition);
+    }
+
+    @Override
+    public int find(String line) {
+        return 0;
     }
 
     @Override

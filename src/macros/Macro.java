@@ -10,6 +10,8 @@ public abstract class Macro {
         this.definition = definition;
     }
 
+    public abstract int find(String line);
+
     public abstract String[] solution(String line);
 
     public String getName() {
