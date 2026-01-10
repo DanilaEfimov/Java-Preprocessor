@@ -2,6 +2,7 @@ package macros;
 
 import common.Config;
 import common.StringLiteralSelector;
+import common.SymbolSelector;
 
 public class RawMacro extends Macro {
 
@@ -9,33 +10,9 @@ public class RawMacro extends Macro {
         super(name, definition);
     }
 
+    @Override
     public int find(String line) {
-        int from = 0;
-
-        while (true) {
-            int idx = StringLiteralSelector.getFreePosition(
-                    line.substring(from), this.name
-            );
-
-            if (idx == Config.npos)
-                return Config.npos;
-
-            int abs = from + idx;
-            int end = abs + name.length();
-
-            boolean leftOk =
-                    abs == 0 ||
-                    !Character.isJavaIdentifierPart(line.charAt(abs - 1));
-
-            boolean rightOk =
-                    end >= line.length() ||
-                    !Character.isJavaIdentifierPart(line.charAt(end));
-
-            if (leftOk && rightOk)
-                return abs;
-
-            from = end;
-        }
+        return SymbolSelector.getIdentifierPosition(line, this.name);
     }
 
     @Override

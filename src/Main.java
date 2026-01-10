@@ -1,36 +1,17 @@
 import macros.*;
 
 public static void main(String[] args) {
-    RawMacro m1 = new RawMacro(
-            "FOO",
-            new String[] {
-                    "int x = 10;",
-                    "int y = 20;"
-            }
-    );
-
-    RawMacro m2 = new RawMacro(
-            "BAR",
-            new String[] {
-                    "System.out.println(x + y);"
-            }
+    ArgMacro macro = new ArgMacro(
+            "SUM",
+            new String[]{"a + b"},
+            new String[]{"a", "b"}
     );
 
     String[] program = {
-            "String s = \"FOO\"; FOO_ ffFOOp FOO",
-            "FOOFOO BARBAR",
-            "BAR",
-            "\"FOO BAR\"",
-            "FOO BAR"
+            "dadsd asd asdas asd asd adS SUM (1, 2)",
+            "SUM SUM SUM SUM(123123123, 2312)"
     };
 
-    for (String line : program) {
-        String[] expanded = m1.solution(line);
-        for (String l : expanded) {
-            String[] expanded2 = m2.solution(l);
-            for (String out : expanded2) {
-                System.out.println(out);
-            }
-        }
-    }
+    for(String line : program)
+        System.out.print(String.join("\n", macro.solution(line)));
 }

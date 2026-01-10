@@ -7,6 +7,35 @@ import java.util.regex.Matcher;
 
 public class SymbolSelector {
 
+    public static int getIdentifierPosition(String line, String identifier) {
+        int from = 0;
+
+        while (true) {
+            int idx = StringLiteralSelector.getFreePosition(
+                    line.substring(from), identifier
+            );
+
+            if (idx == Config.npos)
+                return Config.npos;
+
+            int abs = from + idx;
+            int end = abs + identifier.length();
+
+            boolean leftOk =
+                    abs == 0 ||
+                            !Character.isJavaIdentifierPart(line.charAt(abs - 1));
+
+            boolean rightOk =
+                    end >= line.length() ||
+                            !Character.isJavaIdentifierPart(line.charAt(end));
+
+            if (leftOk && rightOk)
+                return abs;
+
+            from = end;
+        }
+    }
+
     /**
      * Scope symbol is class or member function definition.<br>
      * <i>Look at common.Config.java</i>.

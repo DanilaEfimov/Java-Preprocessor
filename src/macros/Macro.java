@@ -1,9 +1,12 @@
 package macros;
 
+import common.Config;
+import common.StringLiteralSelector;
+
 public abstract class Macro {
 
-    public final String name;
-    public final String[] definition;
+    protected String name;
+    protected String[] definition;
 
     Macro(String name, String[] definition) {
         this.name = name;
@@ -15,10 +18,18 @@ public abstract class Macro {
     public abstract String[] solution(String line);
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String[] getDefinition() {
-        return definition;
+        return this.definition;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDefinition(String[] definition) {
+        this.definition = definition;
     }
 }
