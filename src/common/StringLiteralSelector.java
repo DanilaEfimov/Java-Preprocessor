@@ -55,14 +55,6 @@ public class StringLiteralSelector {
         return Config.npos;
     }
 
-    public static boolean hasLiteral(String line) {
-        return line.matches(Config.Java.stringLiteral);
-    }
-
-    public static String[] getLiterals(String line) {
-        return new String[]{};
-    }
-
     public static boolean inLiteral(String line, int pos) {
         boolean in = false;
 

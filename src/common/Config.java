@@ -6,7 +6,7 @@ public class Config {
 
     public static class Jpp {
         public static final String jppHolder = "@jpp";
-        public static final String directivePattern = Java.singleCommentOpening + General.spacePattern + jppHolder + ".*";
+        public static final String directivePattern = jppHolder + ".*";
     }
 
     public static class General {

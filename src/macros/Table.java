@@ -4,22 +4,40 @@ import java.util.HashMap;
 
 public class Table {
 
-    static private HashMap<String, Macro> macros;
+    private HashMap<String, Macro> macros;
 
-    public static boolean isDefined(String name) {
-        return Table.macros.containsKey(name);
+    public Table() {
+        this.macros = new HashMap<>();
     }
 
-    public static void define(Macro macro) {
-        if(Table.isDefined(macro.name))
+    public boolean isDefined(String name) {
+        return this.macros.containsKey(name);
+    }
+
+    public int definitionLength(String name){
+        if(!this.isDefined(name))
+            return 0;
+
+        return this.macros.get(name).getDefinition().length;
+    }
+
+    public String[] getDefinition(String name) {
+        if(!this.isDefined(name))
+            return new String[0];
+
+        return this.macros.get(name).getDefinition();
+    }
+
+    public void define(Macro macro) {
+        if(this.isDefined(macro.name))
             System.out.println("Macro.Table: warning: macro '" + macro.name + "' was redefined");
 
-        Table.macros.put(macro.name, macro);
+        this.macros.put(macro.name, macro);
     }
 
-    public static void undef(String name) {
-        if(Table.isDefined(name))
-            Table.macros.remove(name);
+    public void undef(String name) {
+        if(this.isDefined(name))
+            this.macros.remove(name);
     }
 
 }
