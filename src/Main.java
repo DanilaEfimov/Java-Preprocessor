@@ -1,5 +1,7 @@
 import common.*;
 import holders.*;
+import macros.Macro;
+import macros.Table;
 import parsing.Parser;
 
 import java.io.*;
@@ -10,7 +12,6 @@ public class Main {
     public static void main(String[] args) {
         // Scanner to input the file path
         Scanner in = new Scanner(System.in);
-        System.out.print("Input input file path: ");
         String path = "C:\\Users\\home\\IdeaProjects\\Preprocessor\\src\\Main.java"; //in.nextLine();  // Get the path from the user
 
         // Reading the file
@@ -33,15 +34,23 @@ public class Main {
 
         // Example preprocessor directives with @jpp trigger
         String a = "@jpp define PI 3.14";
-        // @jpp define MACRO1 some line of text
 
-        // @jpp define macro1 lower cased macro
+        // @jpp define macro1   \
+        // lower cased macro    \
+        // sfsgdfgsdfg dfg      \
+        // dfgdsf df gsdfg sdf  \
 
         // @jpp undef MACRO1
 
         // Processing each line
         Parser parser = new Parser(lines);
         parser.process();
+
+        HashMap<String, Macro> table = Context.macros.get();
+        for(Macro macro : table.values()){
+            System.out.println(macro.getName() + " :: ");
+            System.out.print(Arrays.toString(macro.getDefinition()));
+        }
 
         in.close();  // Closing the Scanner
     }

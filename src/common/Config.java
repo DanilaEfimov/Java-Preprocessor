@@ -7,6 +7,9 @@ public class Config {
     public static class Jpp {
         public static final String jppHolder = "@jpp";
         public static final String directivePattern = jppHolder + ".*";
+        public static final String macroDefSeparatorRegex = "\\\\";
+        public static final String macroDefSeparator = "\\";
+        public static final String macroDefSeparatorPattern = ".*" + macroDefSeparatorRegex + "$";
     }
 
     public static class General {

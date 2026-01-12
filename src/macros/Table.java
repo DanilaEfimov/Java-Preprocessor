@@ -10,6 +10,10 @@ public class Table {
         this.macros = new HashMap<>();
     }
 
+    public HashMap<String, Macro> get() {
+        return this.macros;
+    }
+
     public boolean isDefined(String name) {
         return this.macros.containsKey(name);
     }
